@@ -1,0 +1,10 @@
+applications:
+ - path: .
+   memory: 256M
+   instances: 1
+   domain: eu-gb.mybluemix.net
+   name: nlc
+   host: nlc-dgu
+   disk_quota: 1024M
+   services:
+     - natural-language-classifier-dirk

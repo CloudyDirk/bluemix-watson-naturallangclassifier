@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+<title>IBM Watson Natural Language Classifier</title>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<script type="text/javascript">
+function classify() {
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {
+if (xhr.readyState == 4) {
+if (xhr.status == 200) {
+var json = JSON.parse(xhr.responseText);
+document.getElementById("result").innerHTML = json.top_class;
+}
+}
+}
+xhr.open("POST", "./nlc", true);
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhr.send("source=" + document.getElementById("source").value);
+}
+function clearData() {
+document.getElementById("source").value = "";
+document.getElementById("result").innerHTML = "";
+}
+</script>
+</head>
+<body>
+<p/>
+<div><b>IBM Watson Natural Language Classifier</b></div>
+<p/>
+<div>Enter <i>plain</i> text to be classified.</div>
+<p/>
+<div><textarea id="source" name="source" rows="10"
+cols="75"></textarea></div>
+<p/>
+<div>
+<button onclick="classify()">Classify</button>
+<button onclick="clearData()">Clear</button>
+</div>
+<p/>
+<div><b>Result:</b> <span id="result"></span></div>
+</body>
 </html>
